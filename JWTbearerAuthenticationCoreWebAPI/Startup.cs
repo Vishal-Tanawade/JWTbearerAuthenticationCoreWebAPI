@@ -44,7 +44,7 @@ namespace JWTbearerAuthenticationCoreWebAPI
             //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
             //Refernece end
 
-            var key = "This is my jwt authentication demo";
+            var key = "This is my key for jwt authentication";
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

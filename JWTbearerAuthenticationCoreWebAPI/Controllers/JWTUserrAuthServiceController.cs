@@ -1,6 +1,7 @@
 ﻿using JWTbearerAuthenticationCoreWebAPI.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -48,14 +49,48 @@ namespace JWTbearerAuthenticationCoreWebAPI.Controllers
             return ProductsList.ToList();    //new string[] { "value1", "value2" };
         }
 
-       
-       
 
-        // GET api/<JWTUserrAuthServiceController>/5
+
+        // GET api/<JWTCustomerCareServiceController>/5
+
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            Product product = ProductsList.FirstOrDefault(p => p.ProductCode == id);
+            if (product != null)
+            {
+                return StatusCode(StatusCodes.Status200OK, product); // Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(UserModel userModel)
+        {
+            var tokenString = "";
+
+            if (!_context.UserDetails.Any(c => c.Email == userModel.Email && c.Password == userModel.Password))
+            {
+                tokenString = null;
+            }
+            else
+            {
+                UserDetail usrDetail = _context.UserDetails.FirstOrDefault(u => u.Email == userModel.Email && u.Password == userModel.Password);
+                tokenString = _jwtAuthenticationManager.Authenticate(usrDetail.Email, usrDetail.UserName, usrDetail.Password);
+            }
+
+            if (tokenString == null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                return Ok(new { token = tokenString });
+            }
+
         }
 
         // POST api/<JWTUserrAuthServiceController>
