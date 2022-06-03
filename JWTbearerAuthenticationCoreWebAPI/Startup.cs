@@ -62,6 +62,9 @@ namespace JWTbearerAuthenticationCoreWebAPI
 
                 };
             });
+
+            services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager(key));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JWTbearerAuthenticationCoreWebAPI", Version = "v1" });
