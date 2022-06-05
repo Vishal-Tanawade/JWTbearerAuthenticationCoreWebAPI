@@ -40,7 +40,7 @@ namespace JWTbearerAuthenticationCoreWebAPI.Controllers
         new Product(){ ProductCode=8,ProductName="Memory",ProductPrice=2500.00m},
         new Product(){ ProductCode=9,ProductName="Printers",ProductPrice=4000.00m},
         new Product(){ ProductCode=10,ProductName="Projectors",ProductPrice=30000.00m}
-        };
+        }; 
 
         // GET: api/<JWTUserrAuthServiceController>
         [HttpGet]
