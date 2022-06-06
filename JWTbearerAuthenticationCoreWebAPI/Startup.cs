@@ -84,7 +84,7 @@ namespace JWTbearerAuthenticationCoreWebAPI
             app.UseRouting();
 
             app.UseAuthorization();
-
+           // app.UseAuthentication(); //Why this line not added as in youtube 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

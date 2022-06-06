@@ -24,7 +24,8 @@ namespace JWTbearerAuthenticationCoreWebAPI.Models
         {
 
             var tokenHandler = new JwtSecurityTokenHandler();// install System.IdentityModel.Tokens.Jwt
-            var tokenKey = Encoding.ASCII.GetBytes(Key);
+            // It is used for generate our JWT Token
+            var tokenKey = Encoding.ASCII.GetBytes(Key); //We encrypt the key
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -32,7 +33,7 @@ namespace JWTbearerAuthenticationCoreWebAPI.Models
                     new Claim(ClaimTypes.Email, email),
                     new Claim(ClaimTypes.Name,username)
                 }
-                ),
+                ), // we create array on which basis authentication should be done email/Name/Role/MobileNumber/DateOfBirth, etc.
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey),

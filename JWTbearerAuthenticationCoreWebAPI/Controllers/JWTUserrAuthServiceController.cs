@@ -67,7 +67,7 @@ namespace JWTbearerAuthenticationCoreWebAPI.Controllers
             }
         }
         [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost("authenticate")] ///api/JWTUserrAuthService/authenticate 
         public IActionResult Authenticate(UserModel userModel)
         {
             var tokenString = "";
